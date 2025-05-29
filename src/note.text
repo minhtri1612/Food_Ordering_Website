@@ -1,0 +1,1 @@
+extract street address, postal code, city, quantity from req.body from place-order.hbs

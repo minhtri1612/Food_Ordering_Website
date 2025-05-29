@@ -1,0 +1,62 @@
+<div class="container2">
+  <section class="menu-section">
+    <div class="container-fluid">
+      <h2 class="section-title">Our Delicious Menu</h2>
+      <div class="row">
+        <!-- Category List -->
+        <div class="col-md-2 category-sidebar">
+          <nav class="category-nav" role="tablist">
+            <button class="category-btn active" data-category="all" aria-selected="true">All</button>
+            <a class="category-btn" href="/burger" data-category="burger" aria-selected="false">Burger</a>
+            <button class="category-btn" data-category="asian" aria-selected="false">Asian Foods</button>
+            <button class="category-btn" data-category="burrito" aria-selected="false">Burritos</button>
+            <button class="category-btn" data-category="drink" aria-selected="false">Drinks</button>
+          </nav>
+        </div>
+        <!-- Menu Items -->
+        <div class="col-md-10 menu-content listProduct">
+          <div class="row" id="menu-items">
+            {{#each items}}
+            <div class="col-lg-4 col-md-6 menu-card" data-category="{{this.category}}">
+              <img src="{{this.image}}" alt="{{this.name}}">
+              <div class="menu-card-body">
+                <h5 class="menu-card-title">{{this.name}}</h5>
+                <p class="menu-card-text">{{this.description}}</p>
+                <p class="menu-card-price">${{this.price}}</p>
+                <a href="/item/{{this.slug}}/order" class="btn btn-order-now" data-id ="{{this.id}}"
+                data-name="{{this.name}}" data-image="{{this.image}}" data-price="{{this.price}}">Chọn món</a>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div> 
+  </section>
+
+  <div class="cartTab">
+    <h1>Shopping Cart</h1>
+      <div class="listCart">
+        <div class="item">
+          <div class="image">
+            <img src ="Image/1.jpg" alt="">
+          </div>
+          <div class="name">
+            NAME
+          </div>
+          <div class="totalPrice">
+            $200
+          </div>
+          <div class="quantity">
+            <span class="minus"><</span>
+            <span>1</span>
+            <span class="plus">></span>
+          </div>
+        </div>
+      </div>
+      <div class="btn">
+        <button class="close">CLOSE</button>
+        <button class="checkOut">CHECK Out</button>
+      </div>
+  </div>
+</div>
