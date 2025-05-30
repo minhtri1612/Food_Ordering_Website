@@ -222,15 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ====== Cart Checkout Button ======
-    const checkoutBtn = document.querySelector('.dropdown-btn');
-    
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', function() {
-            // In a real app, this would redirect to checkout page
-            alert('Proceeding to checkout with your 23 items. Total: $79.89');
-        });
-    }
+
 
     // ====== Scroll Animation for Categories and Restaurants ======
     const observerOptions = {
@@ -501,8 +493,21 @@ let iconCart = document.querySelector('.icon-cart');
 let iconCartSpan = document.querySelector('.icon-cart span');
 let body = document.querySelector('body');
 let closeCart = document.querySelector('.close');
-cart = [];
+let checkoutBtn = document.getElementById('checkout-btn');
+let cart = [];
 
+if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', function() {
+        
+        // Optionally, you can validate cart here
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+        // Cart is already in localStorage, just redirect
+        window.location.href = '/item/api/order';
+    });
+}
 let listProducts = [];
 iconCart.addEventListener("click", () => {
     body.classList.toggle('showCart');
@@ -523,6 +528,7 @@ listProductHTML.addEventListener('click', (event) => {
             let image = positionClick.dataset.image;
             let price = parseFloat(positionClick.dataset.price);
             addToCart(id, name, image, price);
+            
         }
     })
 
@@ -583,5 +589,34 @@ const addCartToHTML = () => {
     }
     iconCartSpan.innerText = totalQuantity;
 }
+listCartHTML.addEventListener('click', (event) => {
+    let positionClick = event.target;
+    if(positionClick.classList.contains('minus') || positionClick.classList.contains('plus')) {
+        event.preventDefault();
+        let id = positionClick.closest('.item').dataset.id;
+        let positionThisProductInCart = cart.findIndex((value) => value.product_id == id);
+        if(positionThisProductInCart >= 0) {
+            if(positionClick.classList.contains('minus')) {
+                if(cart[positionThisProductInCart].quantity > 1) {
+                    cart[positionThisProductInCart].quantity = cart[positionThisProductInCart].quantity - 1;
+                } else {
+                    cart.splice(positionThisProductInCart, 1);
+                }
+            } else if(positionClick.classList.contains('plus')) {
+                cart[positionThisProductInCart].quantity = cart[positionThisProductInCart].quantity + 1;
+            }
+            addCartToHTML();
+            addCartToMemory();
+        }
+    }
+
+
+})
+if(localStorage.getItem('cart')) {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    
+    addCartToHTML();
+}
+
 
 

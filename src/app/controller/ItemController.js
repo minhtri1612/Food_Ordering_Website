@@ -138,18 +138,18 @@ const itemModel = require('../models/itemModel');
     // [GET] /item/:slug/order - Render the order form for a specific item
     async showOrderForm(req, res) {
         try {
-            const slug = req.params.slug; // Extract the slug from the request parameters
+            // const slug = req.params.slug; // Extract the slug from the request parameters
 
-            const ItemModel = new itemModel();
-            const item = await ItemModel.getItemBySlug(slug); // Fetch the item by its slug
-            if (!item) {
-                return res.status(404).send('Item not found'); // Return 404 if the item doesn't exist
-            }
+            // const ItemModel = new itemModel();
+            // const item = await ItemModel.getItemBySlug(slug); // Fetch the item by its slug
+            // if (!item) {
+            //     return res.status(404).send('Item not found'); // Return 404 if the item doesn't exist
+            // }
             console.log('currentPath:', req.path); // Log the current path for debugging
             // Render the order form with the fetched item data
             res.render('order/place-order', {
                 layout: 'user', // Use the public layout
-                item,
+                // item,
                 // currentPath: req.path,
                 currentPath: req.originalUrl, // Pass the original URL for potential use in the view
                 username: req.session.user.username // Pass the current path for potential use in the view

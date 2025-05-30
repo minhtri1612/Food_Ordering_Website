@@ -4,11 +4,11 @@
     <div class="row">
       <!-- Item Details -->
       <div class="col-lg-4 col-md-5 mb-4">
-        <div class="item-card">
-          <img src="{{item.image}}" alt="{{item.name}}" class="item-image">
+        <div class="item-card" id="order-cart-list">
+          {{!-- <img src="{{item.image}}" alt="{{item.name}}" class="item-image">
           <div class="item-card-body">
             <h5 class="item-title">{{item.name}}</h5>
-            <p class="item-price">${{item.price}}</p>
+            <p class="item-price">${{item.price}}</p> --}}
           </div>
         </div>
       </div>
@@ -72,3 +72,38 @@
     </div>
   </div>
 </section>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the cart from localStorage
+    let cart = [];
+    if (localStorage.getItem('cart')) {
+        cart = JSON.parse(localStorage.getItem('cart'));
+    }
+
+    // Reference to the container where you want to show cart items
+    const orderCartList = document.getElementById('order-cart-list');
+
+    // Render cart items
+    if (cart.length > 0) {
+        cart.forEach(item => {
+            const div = document.createElement('div');
+            div.classList.add('order-cart-item');
+            div.innerHTML = `
+               
+
+
+                <img src="${item.image}" alt="${item.name}" class="item-image">
+                <div class="item-card-body">
+                <h5 class="item-title">${item.name}</h5>
+                <p class="item-price">${item.price}</p>
+                </div>
+            `;
+            orderCartList.appendChild(div);
+        });
+    } else {
+        orderCartList.innerHTML = '<p>Your cart is empty.</p>';
+    }
+});
+</script>
