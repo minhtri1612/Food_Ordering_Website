@@ -10,7 +10,7 @@ router.post('/login', loginController.authentication);
 router.get('/logout', loginController.logout);
 router.get('/search', homeController.search);
 router.get('/menu', homeController.menu);
-router.get('/menu2', homeController.menu2);
+
 
 
 module.exports = router;

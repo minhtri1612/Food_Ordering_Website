@@ -290,37 +290,7 @@ class homeController {
         }
     }
 
-    async menu2(req, res) {
-        try {
-            // Check if the user is logged in
-            if (req.session.user) {
-                if (req.session.user.isAdmin) {
-                    return res.redirect('/admin'); // Redirect admins to the admin dashboard
-                }
-            }
 
-            // Fetch all items from the database
-            const ItemModel = new itemModel();
-            const items = await ItemModel.showitem();
-
-            // Render the menu view with the fetched data
-            res.render('item/menu2', {
-                layout: 'user2', // Use the user layout
-                // items, // Pass the fetched items to the view
-                // currentPath: req.originalUrl,  
-            }
-        );
-    }catch (error) {
-            // Log the error for debugging
-            console.error('Error in menu:', error);
-
-            // Render an error page or send a user-friendly error message
-            res.status(500).render('error', {
-                layout: 'public', // Use a public layout for error pages
-                message: 'An error occurred while loading the menu. Please try again later.',
-            });
-        }
-    }
 }
 
 // Exporting an instance of the homeController class

@@ -44,7 +44,7 @@ class OrderController {
             res.status(500).send('Internal server error'); // Return a 500 error response
         }
     }
-
+    // Update the status of an order(admin only)
     async updateOrderStatus(req, res) {
         try {
             // Check if the user is logged in and is an admin
