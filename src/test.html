@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 80px; /* Adjust for fixed navbar */
+        }
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .navbar-brand img {
+            height: 40px;
+        }
+        .navbar-nav {
+            flex-grow: 1;
+            justify-content: center;
+            text-align: center;
+        }
+        .navbar-nav .nav-link {
+            padding: 0 15px;
+            font-weight: 500;
+        }
+        .cart-icon {
+            font-size: 1.5rem;
+        }
+        .order-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .item-list {
+            border-right: 1px solid #dee2e6;
+            padding-right: 20px;
+        }
+        .item-card {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+        .form-section {
+            padding-left: 20px;
+        }
+        .form-section h2, .form-section-title {
+            margin-bottom: 20px;
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #dee2e6;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+        }
+        .btn-order {
+            background-color: #007bff;
+            color: #fff;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .btn-order:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            .item-list {
+                border-right: none;
+                border-bottom: 1px solid #dee2e6;
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+            }
+            .form-section {
+                padding-left: 0;
+            }
+            .navbar-nav {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="https://via.placeholder.com/40" alt="Logo">
+            </a>
+            <!-- Toggler for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Cart Icon -->
+            <a href="#" class="cart-icon ms-auto">
+                <i class="bi bi-cart"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Order Form Content -->
+    <div class="order-container">
+        <div class="row">
+            <!-- Item List Section -->
+            <div class="col-md-6 item-list">
+                <h2>Available Items</h2>
+                <div class="item-card">
+                    <h5>Product 1</h5>
+                    <p>High-quality item with great features.</p>
+                    <p><strong>Price:</strong> $29.99</p>
+                </div>
+                <div class="item-card">
+                    <h5>Product 2</h5>
+                    <p>Another amazing product for your needs.</p>
+                    <p><strong>Price:</strong> $49.99</p>
+                </div>
+                <div class="item-card">
+                    <h5>Product 3</h5>
+                    <p>Premium quality with extended warranty.</p>
+                    <p><strong>Price:</strong> $79.99</p>
+                </div>
+            </div>
+            <!-- Form Section -->
+            <div class="col-md-6 form-section">
+                <h2>Order Information</h2>
+                <form id="order-form" action="/order" method="POST">
+                    <!-- Address -->
+                    <div class="mb-4">
+                        <h4 class="form-section-title">Delivery Address</h4>
+                        <div class="mb-3">
+                            <label for="street" class="form-label">Street Address</label>
+                            <input type="text" class="form-control" id="street" name="street" required aria-describedby="street-error">
+                            <div id="street-error" class="invalid-feedback">Please enter your street address.</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" class="form-control" id="city" name="city" required aria-describedby="city-error">
+                                <div id="city-error" class="invalid-feedback">Please enter your city.</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="postal" class="form-label">Postal Code</label>
+                                <input type="text" class="form-control" id="postal" name="postal" required aria-describedby="postal-error">
+                                <div id="postal-error" class="invalid-feedback">Please enter your postal code.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Quantity -->
+                    <div class="mb-4">
+                        <h4 class="form-section-title">Quantity</h4>
+                        <div class="quantity-selector">
+                            <button type="button" class="quantity-btn decrease" aria-label="Decrease quantity">-</button>
+                            <input type="number" class="quantity-input" name="quantity" value="1" min="1" aria-label="Quantity">
+                            <button type="button" class="quantity-btn increase" aria-label="Increase quantity">+</button>
+                        </div>
+                    </div>
+                    <!-- Payment Method -->
+                    <div class="mb-4">
+                        <h4 class="form-section-title">Payment Method</h4>
+                        <div class="payment-options">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="cash" value="cash" checked required>
+                                <label class="form-check-label" for="cash">Cash on Delivery</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="card" value="card">
+                                <label class="form-check-label" for="card">Credit/Debit Card</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="mobile" value="mobile">
+                                <label class="form-check-label" for="mobile">Mobile Payment (e.g., PayPal, ZaloPay)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Hidden Item Data -->
+                    <input type="hidden" name="itemId" value="1">
+                    <input type="hidden" name="cart" id="cart-data" />
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-order">Place Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+    <script>
+        // Quantity button functionality
+        document.querySelector('.quantity-btn.decrease').addEventListener('click', () => {
+            const input = document.querySelector('.quantity-input');
+            let value = parseInt(input.value);
+            if (value > 1) {
+                input.value = value - 1;
+            }
+        });
+
+        document.querySelector('.quantity-btn.increase').addEventListener('click', () => {
+            const input = document.querySelector('.quantity-input');
+            let value = parseInt(input.value);
+            input.value = value + 1;
+        });
+    </script>
+</body>
+</html>

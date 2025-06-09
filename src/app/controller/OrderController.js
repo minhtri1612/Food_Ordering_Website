@@ -12,15 +12,16 @@ class OrderController {
             }
 
             // Extract item ID and quantity from the request body
-            const { itemId, quantity, street, city, postal, payment } = req.body;
+            const { cart, street, city, postal, payment } = req.body;
+          
+            console.log('Placing order with data:', req.body);
 
             // Validate the input fields
-             if (!itemId || !quantity || quantity <= 0 || !street || !city || !postal || !payment) {
-                return res.status(400).send('All fields are required and quantity must be valid.');
+             if (!cart || !street || !city || !postal || !payment) {
+                return res.status(400).send('All fields are required.');
             }
-
-            // Create an array of items to be ordered
-            const items = [{ itemId: parseInt(itemId), quantity: parseInt(quantity) }];
+            const items = JSON.parse(cart);
+            
             const address = { street, city, postal };
 
             // Instantiate the orderModel to interact with the order data
@@ -75,6 +76,31 @@ class OrderController {
             // Log and handle any errors
             console.error('Error updating order status:', error);
             res.status(500).send('Internal server error'); // Return a 500 error response
+        }
+    }
+
+    async showOrderForm(req, res) {
+        try {
+            // const slug = req.params.slug; // Extract the slug from the request parameters
+
+            // const ItemModel = new itemModel();
+            // const item = await ItemModel.getItemBySlug(slug); // Fetch the item by its slug
+            // if (!item) {
+            //     return res.status(404).send('Item not found'); // Return 404 if the item doesn't exist
+            // }
+            console.log('currentPath:', req.path); // Log the current path for debugging
+            // Render the order form with the fetched item data
+            res.render('order/place-order', {
+                layout: 'user', // Use the public layout
+                // item,
+                // currentPath: req.path,
+                currentPath: req.originalUrl, // Pass the original URL for potential use in the view
+                username: req.session.user.username // Pass the current path for potential use in the view
+            });
+        } catch (error) {
+            // Log and handle any errors
+            console.error('Error showing order form:', error);
+            res.status(500).send('Internal server error');
         }
     }
 }

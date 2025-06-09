@@ -58,7 +58,7 @@ if (checkoutBtn) {
             return;
         }
         // Cart is already in localStorage, just redirect
-        window.location.href = '/item/api/order';
+        window.location.href = '/order/formOrder';
     });
 }
 
@@ -71,10 +71,37 @@ closeCart.addEventListener('click', () => {
     body.classList.toggle('showCart');
 });
 
+listCartHTML.addEventListener('click', (event) => {
+    let positionClick = event.target;
+    if(positionClick.classList.contains('minus') || positionClick.classList.contains('plus')) {
+        event.preventDefault();
+        let id = positionClick.closest('.item').dataset.id;
+        let positionThisProductInCart = cart.findIndex((value) => value.product_id == id);
+        if(positionThisProductInCart >= 0) {
+            if(positionClick.classList.contains('minus')) {
+                if(cart[positionThisProductInCart].quantity > 1) {
+                    cart[positionThisProductInCart].quantity = cart[positionThisProductInCart].quantity - 1;
+                } else {
+                    cart.splice(positionThisProductInCart, 1);
+                }
+            } else if(positionClick.classList.contains('plus')) {
+                cart[positionThisProductInCart].quantity = cart[positionThisProductInCart].quantity + 1;
+            }
+            
+            addCartToHTML();
+            addCartToMemory2();
+        }
+    }
+
+})
+const addCartToMemory2 = () => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
 listProductHTML.addEventListener('click', (event) => {
         let positionClick = event.target;
         if(positionClick.classList.contains('btn-order-now')){
-            event.preventDefault();
+            // event.preventDefault();
             let id = positionClick.dataset.id;
             let name = positionClick.dataset.name;
             let image = positionClick.dataset.image;
@@ -105,32 +132,10 @@ const addToCart = (product_id, name, image, price) => {
     }else{
         cart[positionThisProductInCart].quantity = cart[positionThisProductInCart].quantity + 1;
     }
+    console.log("Cart", cart);
     addCartToHTML();
     addCartToMemory();
 }
 const addCartToMemory = () => {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
-
-listCartHTML.addEventListener('click', (event) => {
-    let positionClick = event.target;
-    if(positionClick.classList.contains('minus') || positionClick.classList.contains('plus')) {
-        event.preventDefault();
-        let id = positionClick.closest('.item').dataset.id;
-        let positionThisProductInCart = cart.findIndex((value) => value.product_id == id);
-        if(positionThisProductInCart >= 0) {
-            if(positionClick.classList.contains('minus')) {
-                if(cart[positionThisProductInCart].quantity > 1) {
-                    cart[positionThisProductInCart].quantity = cart[positionThisProductInCart].quantity - 1;
-                } else {
-                    cart.splice(positionThisProductInCart, 1);
-                }
-            } else if(positionClick.classList.contains('plus')) {
-                cart[positionThisProductInCart].quantity = cart[positionThisProductInCart].quantity + 1;
-            }
-            addCartToHTML();
-            addCartToMemory();
-        }
-    }
-
-})

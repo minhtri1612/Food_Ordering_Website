@@ -21,7 +21,7 @@ class homeController {
             },
             exclusiveDeals: [
             {
-                image: '/img/deals/burgers.jpg',
+                image: '/img/deals/burger.jpg',
                 alt: 'Chef Burgers London',
                 discount: '-40%',
                 type: 'Restaurant',
@@ -43,20 +43,20 @@ class homeController {
             }
             ],
             categories: [
-            { image: '/img/burgers.jpg', name: 'Burgers & Fast food', count: 21 },
-            { image: '/img/salads.jpg', name: 'Salads', count: 32 },
-            { image: '/img/pasta.jpg', name: 'Pasta & Casuals', count: 4 },
-            { image: '/img/pizza.jpg', name: 'Pizza', count: 32 },
+            { image: '/img/burger.jpg', name: 'Burgers & Fast food', count: 21 },
+            { image: '/img/salad.jpg', name: 'Salads', count: 32 },
+            { image: '/img/pasta.png', name: 'Pasta & Casuals', count: 4 },
+            { image: '/img/pizza.webp', name: 'Pizza', count: 32 },
             { image: '/img/breakfast.jpg', name: 'Breakfast', count: 4 },
-            { image: '/img/soups.jpg', name: 'Soups', count: 32 }
+            { image: '/img/soup.jpg', name: 'Soups', count: 32 }
             ],
             restaurants: [
-            { image: '/img/restaurants/mcdonalds.jpg', name: "McDonald's London" },
+            { image: '/img/restaurants/mcdonalds.svg', name: "McDonald's London" },
             { image: '/img/restaurants/papajohns.jpg', name: "Papa Johns" },
-            { image: '/img/restaurants/kfc.jpg', name: "KFC West London" },
+            { image: '/img/restaurants/kfc.png', name: "KFC West London" },
             { image: '/img/restaurants/texas-chicken.jpg', name: "Texas Chicken" },
-            { image: '/img/restaurants/burger-king.jpg', name: "Burger King" },
-            { image: '/img/restaurants/shaurma.jpg', name: "Shaurma 1" }
+            { image: '/img/restaurants/burger-king.png', name: "Burger King" },
+            { image: '/img/restaurants/shaurma.avif', name: "Shaurma 1" }
             ],
             statistics: [
             { number: '546+', label: 'Registered Riders' },
@@ -90,9 +90,9 @@ class homeController {
             location: 'Regent Street, A4, A4201, London'
             },
             
-            exclusiveDeals: [
+             exclusiveDeals: [
             {
-                image: '/img/deals/burgers.jpg',
+                image: '/img/deals/burger.jpg',
                 alt: 'Chef Burgers London',
                 discount: '-40%',
                 type: 'Restaurant',
@@ -114,20 +114,20 @@ class homeController {
             }
             ],
             categories: [
-            { image: '/img/burger.avif', name: 'Burgers & Fast food', count: 21 },
-            { image: '/img/salads.jpg', name: 'Salads', count: 32 },
-            { image: '/img/pasta.jpg', name: 'Pasta & Casuals', count: 4 },
-            { image: '/img/pizza.jpg', name: 'Pizza', count: 32 },
+            { image: '/img/burger.jpg', name: 'Burgers & Fast food', count: 21 },
+            { image: '/img/salad.jpg', name: 'Salads', count: 32 },
+            { image: '/img/pasta.png', name: 'Pasta & Casuals', count: 4 },
+            { image: '/img/pizza.webp', name: 'Pizza', count: 32 },
             { image: '/img/breakfast.jpg', name: 'Breakfast', count: 4 },
-            { image: '/img/soups.jpg', name: 'Soups', count: 32 }
+            { image: '/img/soup.jpg', name: 'Soups', count: 32 }
             ],
             restaurants: [
-            { image: '/img/restaurants/mcdonalds.jpg', name: "McDonald's London" },
+            { image: '/img/restaurants/mcdonalds.svg', name: "McDonald's London" },
             { image: '/img/restaurants/papajohns.jpg', name: "Papa Johns" },
-            { image: '/img/restaurants/kfc.jpg', name: "KFC West London" },
+            { image: '/img/restaurants/kfc.png', name: "KFC West London" },
             { image: '/img/restaurants/texas-chicken.jpg', name: "Texas Chicken" },
-            { image: '/img/restaurants/burger-king.jpg', name: "Burger King" },
-            { image: '/img/restaurants/shaurma.jpg', name: "Shaurma 1" }
+            { image: '/img/restaurants/burger-king.png', name: "Burger King" },
+            { image: '/img/restaurants/shaurma.avif', name: "Shaurma 1" }
             ],
             statistics: [
             { number: '546+', label: 'Registered Riders' },
@@ -233,63 +233,24 @@ class homeController {
         }
     }
 
-    async menu(req, res) {
-        try {
-            // Check if the user is logged in
-            if (req.session.user) {
-                if (req.session.user.isAdmin) {
-                return res.redirect('/admin'); // Redirect admins to the admin dashboard
-            }
-            else{
-                const ItemModel = new itemModel();
-                const items = await ItemModel.showitem();
-
-                // Render the menu view with the fetched data
-                res.render('item/menu', {
-                    layout: 'user', // Use the user layout
-                    items, // Pass the fetched items to the view
-                    currentPath: req.originalUrl,
-                    username: req.session.user.username,
-                    user: {
-                    location: 'Regent Street, A4, A4201, London'
-                    }, // Pass the current path for active link highlighting
-                    
-                });
-            }
-            }
-            else{
-                // Fetch all items from the database
-                const ItemModel = new itemModel();
-                const items = await ItemModel.showitem();
-
-                // Render the menu view with the fetched data
-                res.render('item/menu', {
-                    layout: 'public', // Use the user layout
-                    items, // Pass the fetched items to the view
-                    currentPath: req.originalUrl,
-                    user: {
-                    location: 'Regent Street, A4, A4201, London'
-                    }, // Pass the current path for active link highlighting
-
-            })
+    restaurant(req, res) {
+        // Check if the user is logged in
+        if (!req.session.user) {
+            return res.redirect('/login'); // Redirect to login if not logged in
         }
-            
-        } catch (error) {
-            // Log the error for debugging
-            console.error('Error in menu:', error);
 
-            // Render an error page or send a user-friendly error message
-            // res.status(500).render('error', {
-            //     layout: 'public', // Use a public layout for error pages
-            //     message: 'An error occurred while loading the menu. Please try again later.',
-            // });
-            res.json({
-                error: 'An error occurred while loading the menu. Please try again later.',
-                status: 500
-            })
+        // Prevent admins from accessing the user homepage
+        if (req.session.user.isAdmin) {
+            return res.redirect('/admin'); // Redirect admins to the admin dashboard
         }
+
+        // Render the restaurant view with the user layout
+        res.render('order/restaurant', {
+            layout: 'user', // Use the user layout
+            username: req.session.user.username, // Pass the logged-in user's username
+            currentPath: req.originalUrl, // Pass the current path for active link highlighting
+        });
     }
-
 
 }
 

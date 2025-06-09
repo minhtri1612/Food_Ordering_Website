@@ -62,6 +62,21 @@ class itemModel {
         });
     }
 
+    getItemsByCategory(name) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const connection = await getConnection(); // Establish a database connection
+                const sql = 'SELECT * FROM items WHERE name LIKE ?'; // SQL query to fetch items by name
+                const [rows] = await connection.execute(sql, [`%${name}%`]); // Execute the query
+                await connection.end(); // Close the database connection
+                resolve(rows); // Resolve the promise with the fetched rows
+            } catch (error) {
+                console.error('Error fetching items by name:', error); // Log any errors
+                reject(error); // Reject the promise with the error
+            }
+        });
+    }
+
     // Method to fetch a specific item by its slug
     getItemBySlug(slug) {
         return new Promise(async (resolve, reject) => {

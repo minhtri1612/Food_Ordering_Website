@@ -64,6 +64,18 @@ class LoginController {
             res.redirect('/');
         });
     }
+
+    async signup(req,res){
+        const { username, email, password } = req.body;
+        try {
+            await UserModel.createUser(username, email, password);
+            // Redirect to login or user page after successful signup
+            res.redirect('/public');
+        } catch (error) {
+            console.error('Signup error:', error);
+            res.status(500).send('Error creating user');
+        }
+    }
 }
 
 // Exporting an instance of the LoginController class

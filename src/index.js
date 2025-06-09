@@ -12,7 +12,7 @@ const route = require('./routes/index');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 app.use(session({
   secret: 'x7k9mPqW3zT2rY8nJ5vL0bF6tH', // Replace with a secure key
   resave: false,
@@ -29,6 +29,7 @@ const hbs = exphbs.create({
         return paths.some(path => typeof path === 'string' && currentPath.startsWith(path)) ? 'active' : '';
       },
         concat: (...args) => args.slice(0, -1).join(''), // Register the 'concat' helper
+        sum: (a, b) => a + b, // Register the 'sum' helper
     },
   
   layoutsDir: path.join(__dirname, 'resources/views/layouts'),

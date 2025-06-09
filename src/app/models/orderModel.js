@@ -14,9 +14,9 @@ class orderModel {
                 let total = 0;
                 for (const item of items) {
                     // Fetch the price of each item from the database
-                    const [rows] = await connection.execute('SELECT price FROM items WHERE id = ?', [item.itemId]);
+                    const [rows] = await connection.execute('SELECT price FROM items WHERE id = ?', [item.product_id]);
                     if (rows.length === 0) {
-                        throw new Error(`Item ID ${item.itemId} not found`); // Throw an error if the item doesn't exist
+                        throw new Error(`Item ID ${item.product_id} not found`); // Throw an error if the item doesn't exist
                     }
                     total += rows[0].price * item.quantity; // Add the item's cost to the total
                 }
@@ -30,10 +30,10 @@ class orderModel {
 
                 // Insert each item into the order_items table
                 for (const item of items) {
-                    const [rows] = await connection.execute('SELECT price FROM items WHERE id = ?', [item.itemId]);
+                    const [rows] = await connection.execute('SELECT price FROM items WHERE id = ?', [item.product_id]);
                     await connection.execute(
                         'INSERT INTO order_items (order_id, item_id, quantity, price) VALUES (?, ?, ?, ?)',
-                        [orderId, item.itemId, item.quantity, rows[0].price]
+                        [orderId, item.product_id, item.quantity, rows[0].price]
                     );
                 }
 
@@ -110,6 +110,31 @@ class orderModel {
                 resolve(result);
             } catch (error) {
                 console.error('Error updating order status:', error);
+                reject(error);
+            }
+        });
+    }
+    deleteOrder(orderId) {
+        return new Promise(async (resolve, reject) => {
+            let connection;
+            try {
+                connection = await getConnection(); // Establish a database connection
+                await connection.beginTransaction(); // Start a transaction
+
+                // Delete all items for this order
+                await connection.execute('DELETE FROM order_items WHERE order_id = ?', [orderId]);
+                // Delete the order itself
+                const [result] = await connection.execute('DELETE FROM orders WHERE id = ?', [orderId]);
+
+                await connection.commit(); // Commit the transaction
+                await connection.end(); // Close the database connection
+                resolve(result); // Resolve the promise with the result
+            } catch (error) {
+                if (connection) {
+                    await connection.rollback();
+                    await connection.end();
+                }
+                console.error('Error deleting order:', error);
                 reject(error);
             }
         });

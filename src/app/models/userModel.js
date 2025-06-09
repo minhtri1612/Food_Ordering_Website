@@ -44,6 +44,13 @@ class UserModel {
             }
         });
     }
+    // Method to create a new user in the database
+    static async createUser(username, email, password) {
+        const connection = await getConnection();
+        const sql = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+        await connection.execute(sql, [username, email, password]);
+        await connection.end();
+    }
 }
 
 // Exporting the UserModel class for use in other parts of the application

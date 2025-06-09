@@ -37,6 +37,35 @@ class CartController {
             console.log(err);
         }
     }
+    // [DELETE] /cart/delete/:id - Delete an item from the cart
+    deleteItem(req, res, next) {
+        try {
+            // Check if the user is logged in
+            if (!req.session.user) {
+                return res.redirect('/login'); // Redirect to login if not logged in
+            }
+
+            // Extract the item ID from the request parameters
+            const itemId = req.params.id;
+            
+            // Instantiate the CartModel to interact with the cart data
+            const cartModel = new CartModel();
+
+            // Delete the item from the cart using the CartModel method
+            cartModel.deleteOrder(itemId)
+                .then(() => {
+                    // Redirect back to the cart page after deletion
+                    res.redirect('/cart');
+                })
+                .catch(err => {
+                    console.error('Error deleting item:', err);
+                    res.status(500).send('Internal server error'); // Return a 500 error response
+                });
+        } catch (err) {
+            console.error('Error in deleteItem:', err);
+            res.status(500).send('Internal server error'); // Return a 500 error response
+        }
+    }
 }
 
 // Exporting an instance of the CartController class

@@ -1,30 +1,42 @@
 <div class="container mt-4">
+  <section class ="cart-section">
     <h3>My Order</h3>
 
-    <table class="table mt-4">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">User_ID</th>
-                <th scope="col">Price</th>
-                <th scope="col" colspan ="2">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each cart}}
-            <tr>
-                <th scope="row">1</th>
-                <td>{{this.user_id}}</td>
-                <td>{{this.total}}</td>
-                <td>{{this.status}}</td>
-                <td>
-                    <a href="/courses/{{this._id}}/edit" class="btn btn-link">Edit</a>
-                    <a href="" class="btn btn-link" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-modal">Delete</a>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+    <div class="cart-table-wrapper">
+      <table class="table mt-4">
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">User_ID</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Dated</th>
+                  <th scope="col">Street</th>
+                  <th scope="col">City</th>
+                  <th scope="col">Postal</th>
+              </tr>
+          </thead>
+          <tbody>
+              {{#each cart}}
+              <tr>
+                  <th scope="row">{{sum @index 1}}</th>
+                  <td>{{this.user_id}}</td>
+                  <td>{{this.total}}</td>
+                  <td>{{this.status}}</td>
+                  <td>{{this.created_at}}</td>
+                  <td>{{this.street}}</td>
+                  <td>{{this.city}}</td>
+                  <td>{{this.postal}}</td>
+                  <td>
+                      <a href="/courses/{{this.id}}/edit" class="btn btn-link">Edit</a>
+                      <a href="" class="btn btn-link" data-bs-toggle="modal" data-id="{{this.id}}" data-bs-target="#delete-modal">Delete</a>
+                  </td>
+              </tr>
+              {{/each}}
+          </tbody>
+      </table>
+    </div>
+    </section>
 </div>
 
 {{!--Confirm delete--}}
@@ -39,38 +51,36 @@
         <p>Are you sure?</p>
       </div>
       <div class="modal-footer">
-        <button id="btn-delete-item"type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete</button>
-        <button type="button" class="btn btn-primary">Cancel</button>
+        <button id="btn-delete-item"type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
 </div>
 {{!--Delete form --}}
-<form id = "delete-item-form" name ="delete-item-form"method="POST"></form>
+<form id="delete-item-form" method="POST" style="display:none;"></form>
 
 
 <script>
-    const exampleModal = document.getElementById('delete-modal')
-    var recipient
-    var deleteForm = document.getElementById('delete-item-form')
-    var btnDeleteItem = document.getElementById('btn-delete-item')
+    let recipient = null;
+    const exampleModal = document.getElementById('delete-modal');
+    const deleteForm = document.getElementById('delete-item-form');
+    const btnDeleteItem = document.getElementById('btn-delete-item');
+
     if (exampleModal) {
-    exampleModal.addEventListener('show.bs.modal', event => {
-        // Button that triggered the modal
-        const button = event.relatedTarget
-        // Extract info from data-bs-* attributes
-        recipient = button.getAttribute('data-id')
-        console.log(recipient)
-        
-    })
+        exampleModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            recipient = button.getAttribute('data-id');
+        });
     }
 
     if (btnDeleteItem) {
-    btnDeleteItem.onclick = function() {
-        if (recipient) {
-            deleteForm.action = `/courses/${recipient}?_method=DELETE`;
-            deleteForm.submit(); // Submit the form after setting the action
-        }
-    };
-}
+        btnDeleteItem.onclick = function() {
+            if (recipient) {
+                // Set the form action to your order delete route
+                deleteForm.action = `/cart/${recipient}?_method=DELETE`;
+                deleteForm.submit();
+            }
+        };
+    }
 </script>
