@@ -19,6 +19,62 @@ class homeController {
             items: 23,
             total: '79.89'
             },
+            suggestions: [
+                {
+                    name: "Margherita Pizza",
+                    description: "Classic pizza with fresh tomatoes, mozzarella, and basil.",
+                    price: 12.99,
+                    image: "/img/pizza.webp"
+                },
+                {
+                    name: "Grilled Salmon",
+                    description: "Freshly grilled salmon with lemon herb sauce.",
+                    price: 18.50,
+                    image: "/img/deals/burger.jpg"
+                },
+                {
+                    name: "Caesar Salad",
+                    description: "Crisp romaine lettuce with creamy Caesar dressing.",
+                    price: 8.99,
+                    image: "/img/deals/salad.jpg"
+                },
+                 {
+                    name: "Margherita Pizza",
+                    description: "Classic pizza with fresh tomatoes, mozzarella, and basil.",
+                    price: 12.99,
+                    image: "/img/pizza.webp"
+                },
+                {
+                    name: "Grilled Salmon",
+                    description: "Freshly grilled salmon with lemon herb sauce.",
+                    price: 18.50,
+                    image: "/img/deals/burger.jpg"
+                },
+                {
+                    name: "Caesar Salad",
+                    description: "Crisp romaine lettuce with creamy Caesar dressing.",
+                    price: 8.99,
+                    image: "/img/deals/salad.jpg"
+                },
+                 {
+                    name: "Margherita Pizza",
+                    description: "Classic pizza with fresh tomatoes, mozzarella, and basil.",
+                    price: 12.99,
+                    image: "/img/pizza.webp"
+                },
+                {
+                    name: "Grilled Salmon",
+                    description: "Freshly grilled salmon with lemon herb sauce.",
+                    price: 18.50,
+                    image: "/img/deals/burger.jpg"
+                },
+                {
+                    name: "Caesar Salad",
+                    description: "Crisp romaine lettuce with creamy Caesar dressing.",
+                    price: 8.99,
+                    image: "/img/deals/salad.jpg"
+                }
+            ],
             exclusiveDeals: [
             {
                 image: '/img/deals/burger.jpg',
@@ -90,7 +146,7 @@ class homeController {
             location: 'Regent Street, A4, A4201, London'
             },
             
-             exclusiveDeals: [
+            exclusiveDeals: [
             {
                 image: '/img/deals/burger.jpg',
                 alt: 'Chef Burgers London',
@@ -111,7 +167,42 @@ class homeController {
                 discount: '-17%',
                 type: 'Restaurant',
                 name: 'Butterbrot Cafe London'
-            }
+            },
+            {
+                image: '/img/deals/burger.jpg',
+                alt: 'Chef Burgers London',
+                discount: '-40%',
+                type: 'Restaurant',
+                name: 'Chef Burgers London'
+            },
+            {
+                image: '/img/deals/burger.jpg',
+                alt: 'Chef Burgers London',
+                discount: '-40%',
+                type: 'Restaurant',
+                name: 'Chef Burgers London'
+            },
+            {
+                image: '/img/deals/burger.jpg',
+                alt: 'Chef Burgers London',
+                discount: '-40%',
+                type: 'Restaurant',
+                name: 'Chef Burgers London'
+            },
+            {
+                image: '/img/deals/burger.jpg',
+                alt: 'Chef Burgers London',
+                discount: '-40%',
+                type: 'Restaurant',
+                name: 'Chef Burgers London'
+            },
+            {
+                image: '/img/deals/burger.jpg',
+                alt: 'Chef Burgers London',
+                discount: '-40%',
+                type: 'Restaurant',
+                name: 'Chef Burgers London'
+            },
             ],
             categories: [
             { image: '/img/burger.jpg', name: 'Burgers & Fast food', count: 21 },
@@ -121,13 +212,70 @@ class homeController {
             { image: '/img/breakfast.jpg', name: 'Breakfast', count: 4 },
             { image: '/img/soup.jpg', name: 'Soups', count: 32 }
             ],
-            restaurants: [
-            { image: '/img/restaurants/mcdonalds.svg', name: "McDonald's London" },
-            { image: '/img/restaurants/papajohns.jpg', name: "Papa Johns" },
-            { image: '/img/restaurants/kfc.png', name: "KFC West London" },
-            { image: '/img/restaurants/texas-chicken.jpg', name: "Texas Chicken" },
-            { image: '/img/restaurants/burger-king.png', name: "Burger King" },
-            { image: '/img/restaurants/shaurma.avif', name: "Shaurma 1" }
+            suggestions: [
+                {
+                    id: 1,
+                    name: "Margherita Pizza",
+                    description: "Classic pizza with fresh tomatoes, mozzarella, and basil.",
+                    price: 12.99,
+                    image: "/img/pizza.webp"
+                },
+                {
+                    id: 2,
+                    name: "Grilled Salmon",
+                    description: "Freshly grilled salmon with lemon herb sauce.",
+                    price: 18.50,
+                    image: "/img/deals/burger.jpg"
+                },
+                {
+                    id: 3,
+                    name: "Caesar Salad",
+                    description: "Crisp romaine lettuce with creamy Caesar dressing.",
+                    price: 8.99,
+                    image: "/img/deals/salad.jpg"
+                },
+                 {
+                    id: 4,
+                    name: "Margherita Pizza",
+                    description: "Classic pizza with fresh tomatoes, mozzarella, and basil.",
+                    price: 12.99,
+                    image: "/img/pizza.webp"
+                },
+                {
+                    id: 5,
+                    name: "Grilled Salmon",
+                    description: "Freshly grilled salmon with lemon herb sauce.",
+                    price: 18.50,
+                    image: "/img/deals/burger.jpg"
+                },
+                {
+                    id: 6,
+                    name: "Caesar Salad",
+                    description: "Crisp romaine lettuce with creamy Caesar dressing.",
+                    price: 8.99,
+                    image: "/img/deals/salad.jpg"
+                },
+                {
+                    id: 7,
+                    name: "Margherita Pizza",
+                    description: "Classic pizza with fresh tomatoes, mozzarella, and basil.",
+                    price: 12.99,
+                    image: "/img/pizza.webp"
+                },
+                {
+                    id: 8,
+                    name: "Grilled Salmon",
+                    description: "Freshly grilled salmon with lemon herb sauce.",
+                    price: 18.50,
+                    image: "/img/deals/burger.jpg"
+                },
+                {
+                    id: 9,
+                    name: "Caesar Salad",
+                    description: "Crisp romaine lettuce with creamy Caesar dressing.",
+                    price: 8.99,
+                    image: "/img/deals/salad.jpg"
+                }
             ],
             statistics: [
             { number: '546+', label: 'Registered Riders' },
@@ -251,7 +399,7 @@ class homeController {
             currentPath: req.originalUrl, // Pass the current path for active link highlighting
         });
     }
-
+    
 }
 
 // Exporting an instance of the homeController class

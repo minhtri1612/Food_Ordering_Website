@@ -160,6 +160,36 @@ const itemModel = require('../models/itemModel');
             res.status(500).send('Internal server error');
         }
     }
+
+    async itemDetail(req, res){
+        // Check if the user is logged in
+        if (!req.session.user) {
+            return res.redirect('/login'); // Redirect to login if not logged in
+        }
+
+        // Prevent admins from accessing the user homepage
+        if (req.session.user.isAdmin) {
+            return res.redirect('/admin'); // Redirect admins to the admin dashboard
+        }
+
+        const itemSlug = req.params.slug; // Get the item ID from the request parameters
+        const ItemModel = new itemModel(); // Instantiate the item model
+        // Fetch the item details from the database
+        const item = await ItemModel.getItemBySlug(itemSlug); // Fetch the item by its ID
+        if (!item) {
+            return res.status(404).send('Item not found'); // Return 404 if the item doesn't exist
+        }
+
+        // Render the item detail view with the user layout
+        res.render('item/item-details', {
+            layout: 'user', // Use the user layout
+            bodyClass: 'item-details-bg', // Add a class for styling the body
+            username: req.session.user.username, // Pass the logged-in user's username
+            currentPath: req.originalUrl, // Pass the current path for active link highlighting
+            item: item // Pass the fetched item details to the view
+        });
+    }
+
 }
 
 // Exporting an instance of the ItemController class

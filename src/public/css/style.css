@@ -69,6 +69,7 @@ a {
   max-width: 1528px;
   margin: 0 auto;
   padding: 0 16px;
+  width: 100%; 
   
 }
 
@@ -99,6 +100,7 @@ a {
 .cart-container-fixed {
   max-width: 900px; /* or your preferred width */
   margin: 0 auto;
+  width: 100%; 
 }
 
 .cart-table-wrapper {
@@ -113,7 +115,7 @@ a {
  4. Top Bar
 =========================*/
 .top-bar {
-  width: 1470px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -162,6 +164,7 @@ a {
   border-radius: 0 0 12px 12px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   gap: 10px;
+  width: 100%; 
 }
 
 .cart-item,
@@ -254,6 +257,10 @@ a {
 
 .nav-link.active:hover {
   color: #ffffff;
+}
+.nav-link:hover {
+  color: #6f6363;
+  
 }
 
 /* Logo and Login */
@@ -398,10 +405,11 @@ a {
 }
 
 .hero-img {
-  width: 400px;
+  width: 600px;
   height: 480px;
   aspect-ratio: 363.39/466;
-  transform: translateX(-60px);
+  transform: translateX(-100px);
+  border-radius: 15px;
 }
 
 /* Notifications */
@@ -479,100 +487,6 @@ a {
   right: 66px;
 }
 
-/*========================= 
- 7. Exclusive Deals
-=========================*/
-.exclusive-deals {
-  padding: 40px;
-  background: #fff;
-}
-
-.exclusive-deals .ex-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.exclusive-deals h2 {
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: #000;
-}
-
-.filters {
-  display: flex;
-  gap: 16px;
-}
-
-.filters button {
-  background: transparent;
-  border: none;
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: #000;
-  padding: 8px 16px;
-  border-radius: 24px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.filters .active {
-  color: #ffd95e;
-  border: 1px solid #ffd95e;
-}
-
-.filters button:hover {
-  background: #ffd95e;
-  color: #fff;
-}
-
-.cards {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-}
-
-.deal-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  width: 300px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-.deal-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-.deal-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: #1c2a3a;
-  color: #fff;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-weight: bold;
-}
-.info .type{
-  text-align: center;
-  font-size: 1.6rem;
-}
-.info h3{
-  text-align: center;
-  font-size: 1.6rem;
-
-}
 
 /*========================= 
  8. Categories
@@ -690,11 +604,11 @@ a {
  10. About Us Section
 =========================*/
 .about-us {
-  width: 1528px;
+  width: 100%;
   padding: 40px;
-  background: #f9f9f9;
+  background: #ffffff;
   border-radius: 20px;
-  margin: 173px auto 44px;
+  margin: 50px auto 44px;
 }
 
 .tabs {
@@ -1428,6 +1342,82 @@ body.showCart .cartTab{
   background: #fff8e1;
 }
 
+/* Suggestions */
+.suggestion-card {
+    transition: transform 0.3s ease;
+    border: none;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 300px; /* Fixed width for cards */
+    margin-right: 1rem; /* Space between cards */
+}
+.suggestion-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.suggestion-img {
+    height: 200px;
+    object-fit: cover;
+}
+.suggestion-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+}
+.suggestion-price {
+    color: #e44d26;
+    font-weight: 500;
+}
+.suggestion-section {
+    padding: 3rem 0;
+    background: #fff;
+}
+.suggestion-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 
+}
+.suggestion-container::-webkit-scrollbar {
+    height: 0px;
+}
+.suggestion-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+.suggestion-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
 
+.btn-primary {
+  background: #ffd95e;
+  border: none;
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+.btn-primary:hover {
+  background: #e0a800;
+}
 
+.Suggestion-title{
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.suggestion {
+  padding: 40px;
+  background-color: #ffffff;
+}

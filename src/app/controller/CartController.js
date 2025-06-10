@@ -27,7 +27,6 @@ class CartController {
             // Render the cart view with the fetched cart data
             res.render('order/cart', {
                 currentPath: req.originalUrl,
-                
                 layout: 'user', // Use the user layout
                 cart: cart, // Pass the cart data to the view
                 username: req.session.user.username // Pass the username to the view

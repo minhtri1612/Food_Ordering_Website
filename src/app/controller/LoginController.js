@@ -22,7 +22,8 @@ class LoginController {
                 req.session.user = {
                     id: user.id, // User ID
                     username: user.username, // Username
-                    isAdmin: user.isAdmin // Admin status
+                    isAdmin: user.isAdmin, // Admin status
+                    
                 };
                 console.log('User logged in:', req.session.user); // Log the session data for debugging
 

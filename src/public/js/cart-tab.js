@@ -97,19 +97,33 @@ listCartHTML.addEventListener('click', (event) => {
 const addCartToMemory2 = () => {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
-
-listProductHTML.addEventListener('click', (event) => {
+//This listener is for the "Order Now" buttons in the product list
+if (listProductHTML) {
+    listProductHTML.addEventListener('click', (event) => {
         let positionClick = event.target;
         if(positionClick.classList.contains('btn-order-now')){
-            // event.preventDefault();
             let id = positionClick.dataset.id;
             let name = positionClick.dataset.name;
             let image = positionClick.dataset.image;
             let price = parseFloat(positionClick.dataset.price);
             addToCart(id, name, image, price);
-            
         }
-    })
+    });
+}
+// This listener is for the "Order Now" buttons in the suggestion container
+let suggestionContainer = document.querySelector('.suggestion-container');
+if (suggestionContainer) {
+    suggestionContainer.addEventListener('click', (event) => {
+        let positionClick = event.target;
+        if(positionClick.classList.contains('order-now-btn')){
+            let id = positionClick.dataset.id;
+            let name = positionClick.dataset.name;
+            let image = positionClick.dataset.image;
+            let price = parseFloat(positionClick.dataset.price);
+            addToCart(id, name, image, price);
+        }
+    });
+}
 
 const addToCart = (product_id, name, image, price) => {
     let positionThisProductInCart = cart.findIndex((value) => value.product_id == product_id);
@@ -139,3 +153,5 @@ const addToCart = (product_id, name, image, price) => {
 const addCartToMemory = () => {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
+
+// Event listener for the "Order Now" buttons in homepage

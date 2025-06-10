@@ -20,7 +20,9 @@
           <div class="row" id="menu-items">
             {{#each items}}
             <div class="col-lg-4 col-md-6 menu-card" data-category="{{this.category}}">
+              <a href="/menu/{{this.slug}}">
               <img src="{{this.image}}" alt="{{this.name}}">
+              </a>
               <div class="menu-card-body">
                 <h5 class="menu-card-title">{{this.name}}</h5>
                 <p class="menu-card-text">{{this.description}}</p>

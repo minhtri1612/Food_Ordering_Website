@@ -13,7 +13,7 @@ class OrderController {
 
             // Extract item ID and quantity from the request body
             const { cart, street, city, postal, payment } = req.body;
-          
+            console.log('Payment method:', payment);
             console.log('Placing order with data:', req.body);
 
             // Validate the input fields
@@ -28,7 +28,7 @@ class OrderController {
             const OrderModel = new orderModel();
 
             // Create the order and retrieve the order ID and total cost
-            const { orderId, total } = await OrderModel.createOrder(req.session.user.id, items, address);
+            const { orderId, total } = await OrderModel.createOrder(req.session.user.id, items, address, payment);
             
 
             // Render the order confirmation page with the order details
@@ -42,6 +42,31 @@ class OrderController {
         } catch (error) {
             // Log and handle any errors
             console.error('Error placing order:', error);
+            res.status(500).send('Internal server error'); // Return a 500 error response
+        }
+    }
+    //User can cancel an order
+    async CancelOrder(req, res) {
+        try {
+            // Check if the user is logged in and is an admin
+            if (!req.session.user) {
+                return res.status(403).send('Access denied: Admins only'); // Return 403 if the user is not an admin
+            }
+
+            // Extract the order ID from the request parameters
+            const orderId = req.params.id;
+
+            // Instantiate the orderModel to interact with the order data
+            const OrderModel = new orderModel();
+
+            // Cancel the order in the database
+            await OrderModel.CancelOrder(orderId);
+
+            // Redirect to the admin dashboard with a success message
+            res.redirect('/cart');
+        } catch (error) {
+            // Log and handle any errors
+            console.error('Error cancelling order:', error);
             res.status(500).send('Internal server error'); // Return a 500 error response
         }
     }

@@ -1,4 +1,4 @@
-<section class="exclusive-deals">
+{{!-- <section class="exclusive-deals">
   <div class="main-content">
     <div class="ex-header">
       <h2>Up to -40% 🥳 Exclusive Deals</h2>
@@ -22,4 +22,186 @@
       {{/each}}
     </div>
   </div>
+</section> --}}
+
+
+
+<section class="exclusive-deals">
+  <div class="main-content">
+    <div class="ex-header">
+      <h2>Up to -40% 🥳 Exclusive Deals</h2>
+      <div class="filters">
+        <button>Vegan</button>
+        <button>Sushi</button>
+        <button class="active">Pizza & Fast food</button>
+        <button>Others</button>
+      </div>
+    </div>
+    <div class="suggestion-container">
+            {{#each exclusiveDeals}}
+            {{!-- <div class="suggestion-card">
+                <img src="{{image}}" class="suggestion-img w-100" alt="{{name}}">
+                <div class="p-3">
+                    <h3 style ="margin-bottom:5px" class="suggestion-title">{{name}}</h3>
+                    <p style ="margin-bottom:5px" class="text-muted">{{description}}</p>
+                    <p style ="margin-bottom:5px" class="suggestion-price">${{price}}</p>
+                <button  class="btn btn-primary order-now-btn"
+                    data-id="{{id}}"
+                    data-name="{{name}}"
+                    data-image="{{image}}"
+                    data-price="{{price}}"
+                    >
+                    Order Now
+                </button>
+                </div>
+            </div> --}}
+
+
+            <div class="suggestion-card">
+              <img src="{{this.image}}"class="suggestion-img w-100" alt="{{this.alt}}" />
+              <span class="badge">{{this.discount}}</span>
+              <div class="info">
+                <p class="type">{{this.type}}</p>
+                <h3>{{this.name}}</h3>
+              </div>
+            </div>
+            {{/each}}
+      </div>
+  </div>
 </section>
+
+
+<style>
+
+.exclusive-deals {
+  padding: 40px;
+  background: #fff;
+}
+
+.exclusive-deals .ex-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.exclusive-deals h2 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.filters {
+  display: flex;
+  gap: 16px;
+}
+
+.filters button {
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #000;
+  padding: 8px 16px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filters .active {
+  color: #ffd95e;
+  border: 1px solid #ffd95e;
+}
+
+.filters button:hover {
+  background: #ffd95e;
+  color: #fff;
+}
+
+.cards {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 16px;
+  
+}
+
+.cards::-webkit-scrollbar {
+  height: 8px;
+  background: #ffffff;
+}
+.cards::-webkit-scrollbar-thumb {
+  background: #ffd95e;
+  border-radius: 4px;
+}
+
+.deal-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  width: 300px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.deal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.deal-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #1c2a3a;
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+.info .type{
+  text-align: center;
+  font-size: 1.6rem;
+}
+.info h3{
+  text-align: center;
+  font-size: 1.6rem;
+
+}
+
+</style>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelector('.exclusive-deals .cards');
+  const filterButtons = document.querySelectorAll('.exclusive-deals .filters button');
+
+  filterButtons.forEach((btn, idx) => {
+    btn.addEventListener('click', function() {
+      // Remove active class from all buttons
+      filterButtons.forEach(b => b.classList.remove('active'));
+      // Add active class to clicked button
+      this.classList.add('active');
+      // Scroll cards horizontally to the selected section
+      if (cards) {
+        // Scroll by card width * index (adjust if you want to scroll more/less)
+        const card = cards.querySelector('.deal-card');
+        if (card) {
+          const scrollTo = idx * (card.offsetWidth + 24); // 24 is the gap
+          cards.scrollTo({ left: scrollTo, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+});
+</script>
+

@@ -4,7 +4,7 @@ const { getConnection } = require('../../db');
 class orderModel {
 
     // Method to create a new order
-    createOrder(userId, items, address) {
+    createOrder(userId, items, address, payment) {
         return new Promise(async (resolve, reject) => {
             try {
                 const connection = await getConnection(); // Establish a database connection
@@ -23,8 +23,8 @@ class orderModel {
 
                 // Insert the order into the orders table
                 const [orderResult] = await connection.execute(
-                    'INSERT INTO orders (user_id, total, status, street, city, postal) VALUES (?, ?, ?, ?, ?, ?)',
-                    [userId, total, 'pending',  address.street, address.city, address.postal] // Default status is 'pending'
+                    'INSERT INTO orders (user_id, total, status, street, city, postal, Payment) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                    [userId, total, 'pending',  address.street, address.city, address.postal, payment] // Default status is 'pending'
                 );
                 const orderId = orderResult.insertId; // Get the ID of the newly created order
 
@@ -111,6 +111,20 @@ class orderModel {
             } catch (error) {
                 console.error('Error updating order status:', error);
                 reject(error);
+            }
+        });
+    }
+    CancelOrder(orderId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const connection = await getConnection(); // Establish a database connection
+                const sql = 'UPDATE orders SET status = ? WHERE id = ?'; // SQL query to update the order status
+                const [result] = await connection.execute(sql, ['cancelled', orderId]); // Execute the query to cancel the order
+                await connection.end(); // Close the database connection
+                resolve(result); // Resolve the promise with the result
+            } catch (error) {
+                console.error('Error cancelling order:', error); // Log the error
+                reject(error); // Reject the promise with the error
             }
         });
     }
