@@ -1,67 +1,14 @@
-{{!-- <section class="exclusive-deals">
-  <div class="main-content">
-    <div class="ex-header">
-      <h2>Up to -40% 🥳 Exclusive Deals</h2>
-      <div class="filters">
-        <button>Vegan</button>
-        <button>Sushi</button>
-        <button class="active">Pizza & Fast food</button>
-        <button>Others</button>
-      </div>
-    </div>
-    <div class="cards">
-      {{#each exclusiveDeals}}
-        <div class="deal-card">
-          <img src="{{this.image}}" alt="{{this.alt}}" />
-          <span class="badge">{{this.discount}}</span>
-          <div class="info">
-            <p class="type">{{this.type}}</p>
-            <h3>{{this.name}}</h3>
-          </div>
-        </div>
-      {{/each}}
-    </div>
-  </div>
-</section> --}}
-
-
-
 <section class="exclusive-deals">
   <div class="main-content">
     <div class="ex-header">
       <h2>Up to -40% 🥳 Exclusive Deals</h2>
-      <div class="filters">
-        <button>Vegan</button>
-        <button>Sushi</button>
-        <button class="active">Pizza & Fast food</button>
-        <button>Others</button>
-      </div>
     </div>
-    <div class="suggestion-container">
+    <div class="ex-deals-container">
             {{#each exclusiveDeals}}
-            {{!-- <div class="suggestion-card">
-                <img src="{{image}}" class="suggestion-img w-100" alt="{{name}}">
-                <div class="p-3">
-                    <h3 style ="margin-bottom:5px" class="suggestion-title">{{name}}</h3>
-                    <p style ="margin-bottom:5px" class="text-muted">{{description}}</p>
-                    <p style ="margin-bottom:5px" class="suggestion-price">${{price}}</p>
-                <button  class="btn btn-primary order-now-btn"
-                    data-id="{{id}}"
-                    data-name="{{name}}"
-                    data-image="{{image}}"
-                    data-price="{{price}}"
-                    >
-                    Order Now
-                </button>
-                </div>
-            </div> --}}
-
-
-            <div class="suggestion-card">
-              <img src="{{this.image}}"class="suggestion-img w-100" alt="{{this.alt}}" />
+            <div class="ex-deals-card">
+              <img src="{{this.image}}"class="ex-deals-img w-100"  />
               <span class="badge">{{this.discount}}</span>
               <div class="info">
-                <p class="type">{{this.type}}</p>
                 <h3>{{this.name}}</h3>
               </div>
             </div>
@@ -177,31 +124,46 @@
 
 }
 
+
+.ex-deals-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+
+}
+.ex-deals-container::-webkit-scrollbar {
+    height: 0px;
+}
+.ex-deals-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+.ex-deals-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.ex-deals-card {
+    transition: transform 0.3s ease;
+    border: none;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 300px; /* Fixed width for cards */
+    margin-right: 1rem; /* Space between cards */
+    background-color: #E8BC0E;
+    height: 225px; 
+}
+.ex-deals-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.ex-deals-img {
+    height: 200px;
+    object-fit: cover;
+}
+
 </style>
 
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const cards = document.querySelector('.exclusive-deals .cards');
-  const filterButtons = document.querySelectorAll('.exclusive-deals .filters button');
-
-  filterButtons.forEach((btn, idx) => {
-    btn.addEventListener('click', function() {
-      // Remove active class from all buttons
-      filterButtons.forEach(b => b.classList.remove('active'));
-      // Add active class to clicked button
-      this.classList.add('active');
-      // Scroll cards horizontally to the selected section
-      if (cards) {
-        // Scroll by card width * index (adjust if you want to scroll more/less)
-        const card = cards.querySelector('.deal-card');
-        if (card) {
-          const scrollTo = idx * (card.offsetWidth + 24); // 24 is the gap
-          cards.scrollTo({ left: scrollTo, behavior: 'smooth' });
-        }
-      }
-    });
-  });
-});
-</script>
 

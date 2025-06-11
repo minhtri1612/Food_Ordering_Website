@@ -1,6 +1,7 @@
 // Importing the required models
 const itemModel = require('../models/itemModel');
 const orderModel = require('../models/orderModel');
+const exclusiveDealsModel = require('../models/exclusiveDealsModel');
 
 class homeController {
 
@@ -137,73 +138,20 @@ class homeController {
 
         const ItemModel = new itemModel(); // Instantiate the item model
         const item = await ItemModel.showitem(); // Fetch all items from the database
+
+        const exclusive_deals_model = new exclusiveDealsModel();
+        const exclusiveDeals = await exclusive_deals_model.showitem(); // Fetch exclusive deals from the database
         res.render('user/home-user', {
             currentPath: req.path,
             layout: 'user', // Use the user layout
             username: req.session.user.username, // Pass the logged-in user's username
             item: item, // Pass the fetched items to the view
+            exclusiveDeals: exclusiveDeals, // Pass the fetched exclusive deals to the view
             user: {
             location: 'Regent Street, A4, A4201, London'
             },
             
-            exclusiveDeals: [
-            {
-                image: '/img/deals/burger.jpg',
-                alt: 'Chef Burgers London',
-                discount: '-40%',
-                type: 'Restaurant',
-                name: 'Chef Burgers London'
-            },
-            {
-                image: '/img/deals/salad.jpg',
-                alt: 'Grand Ai Cafe London',
-                discount: '-20%',
-                type: 'Restaurant',
-                name: 'Grand Ai Cafe London'
-            },
-            {
-                image: '/img/deals/sandwich.jpg',
-                alt: 'Butterbrot Cafe London',
-                discount: '-17%',
-                type: 'Restaurant',
-                name: 'Butterbrot Cafe London'
-            },
-            {
-                image: '/img/deals/burger.jpg',
-                alt: 'Chef Burgers London',
-                discount: '-40%',
-                type: 'Restaurant',
-                name: 'Chef Burgers London'
-            },
-            {
-                image: '/img/deals/burger.jpg',
-                alt: 'Chef Burgers London',
-                discount: '-40%',
-                type: 'Restaurant',
-                name: 'Chef Burgers London'
-            },
-            {
-                image: '/img/deals/burger.jpg',
-                alt: 'Chef Burgers London',
-                discount: '-40%',
-                type: 'Restaurant',
-                name: 'Chef Burgers London'
-            },
-            {
-                image: '/img/deals/burger.jpg',
-                alt: 'Chef Burgers London',
-                discount: '-40%',
-                type: 'Restaurant',
-                name: 'Chef Burgers London'
-            },
-            {
-                image: '/img/deals/burger.jpg',
-                alt: 'Chef Burgers London',
-                discount: '-40%',
-                type: 'Restaurant',
-                name: 'Chef Burgers London'
-            },
-            ],
+           
             categories: [
             { image: '/img/burger.jpg', name: 'Burgers & Fast food', count: 21 },
             { image: '/img/salad.jpg', name: 'Salads', count: 32 },

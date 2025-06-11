@@ -1,6 +1,6 @@
 // Importing the orderModel to interact with the order data in the database
 const orderModel = require('../models/orderModel');
-
+ // Importing the CartModel to interact with the cart data in the database
 class OrderController {
 
     // [POST] /order - Handle placing an order
@@ -128,6 +128,49 @@ class OrderController {
             res.status(500).send('Internal server error');
         }
     }
+
+    async trackOrder(req, res) {
+        
+        try {
+             if (!req.session.user) {
+            return res.redirect('/login'); // Redirect to login if not logged in
+        }
+
+        // Prevent admins from accessing the user homepage
+        if (req.session.user.isAdmin) {
+            return res.redirect('/admin'); // Redirect admins to the admin dashboard
+        }
+            // Extract the user ID from the session
+           
+            const orderId = req.params.id; // Extract the order ID from the request parameters
+
+            // Instantiate the CartModel to interact with the cart data
+            const cartModel = new orderModel();
+
+            // Fetch the cart data for the logged-in user
+            const cart = await cartModel.showCartbyID(orderId);
+            console.log('Cart data:', cart); // Log the fetched cart data for debugging
+
+            console.log(req.path);
+            console.log(req.session.user.username);
+            // Render the cart view with the fetched cart data
+            res.render('order/track-order', {
+                currentPath: req.originalUrl,
+                title: 'Track Order',
+                layout: 'user', // Use the user layout
+                cart: cart, // Pass the cart data to the view
+                username: req.session.user.username // Pass the username to the view
+            });
+        } catch (error) {
+            console.error('Error in trackOrder:', error);
+            res.status(500).render('error', {
+                layout: 'public',
+                message: 'An error occurred while loading the track order page. Please try again later.',
+            });
+        }
+    }
+
+    
 }
 
 // Exporting an instance of the OrderController class

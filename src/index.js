@@ -6,7 +6,7 @@ const methodOverride = require('method-override');
 const exphbs = require('express-handlebars');
 const app = express();
 
-const port = 4000;
+const port = 3000;
 const route = require('./routes/index');
 
 app.use(express.json());

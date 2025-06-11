@@ -50,7 +50,7 @@ class orderModel {
     }
 
     // Method to fetch the cart data for a specific user by their user ID
-    showCartbyID(userId) {
+    showCartbyUserID(userId) {
         return new Promise(async (resolve, reject) => {
             try {
                 const connection = await getConnection(); // Establish a database connection
@@ -63,6 +63,22 @@ class orderModel {
             }
         });
     }
+
+    showCartbyID(Id) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const connection = await getConnection(); // Establish a database connection
+                // const [rows] = await connection.execute('SELECT * FROM orders WHERE id = ?', [Id]); // Fetch orders for the user
+                const [rows] = await connection.execute('SELECT o.*, u.username FROM orders o JOIN users u on o.user_id = u.id WHERE o.id = ?', [Id]);
+                await connection.end(); // Close the database connection
+                resolve(rows); // Resolve the promise with the fetched rows
+            } catch (error) {
+                console.error('Error fetching cart:', error); // Log the error
+                reject(error); // Reject the promise with the error
+            }
+        });
+    }
+
 
     // Method to fetch all orders from the database
     showAllOrders() {

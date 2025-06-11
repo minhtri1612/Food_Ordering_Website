@@ -34,7 +34,7 @@
                         <input type="hidden" name="status" value="cancelled">
                         <button type="submit" class="btn btn-link text-danger">Cancel Order</button>
                       </form>
-                      <a href="" class="btn btn-link" data-bs-toggle="modal" data-id="{{this.id}}" data-bs-target="#delete-modal">Delete</a>
+                      <a href="/order/track/{{this.id}}" class="btn btn-link" >Details</a>
                   </td>
               </tr>
               {{/each}}
@@ -45,7 +45,7 @@
 </div>
 
 {{!--Confirm delete--}}
-<div id="delete-modal" class="modal" tabindex="-1">
+{{!-- <div id="delete-modal" class="modal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -61,12 +61,12 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 {{!--Delete form --}}
-<form id="delete-item-form" method="POST" style="display:none;"></form>
+{{!-- <form id="delete-item-form" method="POST" style="display:none;"></form> --}}
 
 
-<script>
+{{!-- <script>
     let recipient = null;
     const exampleModal = document.getElementById('delete-modal');
     const deleteForm = document.getElementById('delete-item-form');
@@ -88,4 +88,4 @@
             }
         };
     }
-</script>
+</script> --}}

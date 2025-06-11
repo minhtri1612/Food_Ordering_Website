@@ -21,7 +21,7 @@ class CartController {
             const cartModel = new CartModel();
 
             // Fetch the cart data for the logged-in user
-            const cart = await cartModel.showCartbyID(userId);
+            const cart = await cartModel.showCartbyUserID(userId);
             console.log(req.path);
             console.log(req.session.user.username);
             // Render the cart view with the fetched cart data
@@ -65,6 +65,8 @@ class CartController {
             res.status(500).send('Internal server error'); // Return a 500 error response
         }
     }
+
+    
 }
 
 // Exporting an instance of the CartController class
